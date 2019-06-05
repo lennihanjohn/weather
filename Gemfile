@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.4'
+ruby '2.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
@@ -23,6 +23,8 @@ gem 'jquery-rails'
 gem 'colorize' #Extends String class or add a ColorizedString with methods to set text color, background color and text effects.
 gem "http" # Ruby HTTP library
 
+#Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema.
+gem 'annotate'
 gem 'bootstrap'
 gem 'tether-rails'
 # Use CoffeeScript for .coffee assets and views

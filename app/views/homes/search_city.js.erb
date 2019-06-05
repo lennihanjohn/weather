@@ -1,4 +1,4 @@
-<% if @errors.present? %>
+<% if @parsed_json.is_a? (Integer) %>
     console.log("haha")
     swal ( "Oops" ,  "Something went wrong!" ,  "error" );
 <% else %>

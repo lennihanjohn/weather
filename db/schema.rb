@@ -13,41 +13,42 @@
 ActiveRecord::Schema.define(version: 2019_06_05_043215) do
 
   create_table "cities", force: :cascade do |t|
-    t.integer "countries_id"
-    t.string "name"
-    t.float "lat"
-    t.float "lon"
+    t.integer "country_id"
+    t.string "name", null: false
+    t.float "lat", null: false
+    t.float "lon", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["countries_id"], name: "index_cities_on_countries_id"
+    t.index ["country_id"], name: "index_cities_on_country_id"
   end
 
   create_table "countries", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "weather_descriptions", force: :cascade do |t|
-    t.string "description"
+    t.string "main", null: false
+    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "weather_forcasts", force: :cascade do |t|
-    t.integer "cities_id"
-    t.integer "weather_descriptions_id"
-    t.integer "temperature"
-    t.integer "min_temperature"
-    t.integer "max_temperature"
-    t.integer "humidity"
-    t.integer "pressure"
-    t.time "sunrise"
-    t.time "sunset"
+    t.integer "city_id"
+    t.integer "weather_description_id"
+    t.integer "temperature", null: false
+    t.integer "min_temperature", null: false
+    t.integer "max_temperature", null: false
+    t.integer "humidity", null: false
+    t.integer "pressure", null: false
+    t.time "sunrise", null: false
+    t.time "sunset", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["cities_id"], name: "index_weather_forcasts_on_cities_id"
-    t.index ["weather_descriptions_id"], name: "index_weather_forcasts_on_weather_descriptions_id"
+    t.index ["city_id"], name: "index_weather_forcasts_on_city_id"
+    t.index ["weather_description_id"], name: "index_weather_forcasts_on_weather_description_id"
   end
 
 end
