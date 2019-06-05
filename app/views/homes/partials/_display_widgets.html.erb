@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="weather-card one">
+		<div class="top">
+			
+			
+			<div class="wrapper">
+				<h1 class="heading"><%= @parsed_json["weather"][0]["description"].to_s %></h1>
+				<h3 class="location"><%= params[:search_city][:city] %></h3>
+				<p class="temp">
+					<span class="temp-value"><%=converter_k_to_c(@parsed_json["main"]['temp']) %></span>
+					<span class="deg">0</span>
+					<a href="javascript:;"><span class="temp-type">C</span></a>
+				</p>
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="wrapper">
+				<ul class="forecast">
+					<li class="active">
+						<span class="date">Highest Temp</span>
+						<span class="lnr lnr-sun condition">
+							<span class="temp"><%=converter_k_to_c(@parsed_json["main"]['temp_max']) %><span class="deg">0</span><span class="temp-type">C</span></span>
+						</span>
+					</li>
+					<li class="active">
+						<span class="date">Lowest Temp</span>
+						<span class="lnr lnr-cloud condition">
+							<span class="temp"><%=converter_k_to_c(@parsed_json["main"]['temp_min']) %><span class="deg">0</span><span class="temp-type">C</span></span>
+						</span>
+					</li>
+				</ul>
+			</div>
+			<div class="text-right text-primary small">powered by openweathermap</div>
+		</div>
+	</div>
+</div>

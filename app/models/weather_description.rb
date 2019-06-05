@@ -1,0 +1,2 @@
+class WeatherDescription < ApplicationRecord
+end
