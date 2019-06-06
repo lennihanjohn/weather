@@ -11,4 +11,10 @@
 class Country < ApplicationRecord
     # ASSOCIATIONS
     has_many :cities
+
+    accepts_nested_attributes_for :cities, allow_destroy: true
+
+    def self.save_record(params)
+        return self.find_or_create_by(params)
+    end
 end

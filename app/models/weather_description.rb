@@ -9,5 +9,10 @@
 #
 
 class WeatherDescription < ApplicationRecord
-    belong_to :weather_forcast
+    has_many :weather_forcasts
+
+    def self.save_record(params)
+        return self.find_or_create_by(params)
+    end
+    
 end

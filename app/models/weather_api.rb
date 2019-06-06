@@ -1,12 +1,12 @@
 class WeatherApi < ApplicationRecord
     require 'net/http'
 
-    def self.openweathermap(city)
+    def self.open_weather_map(city)
         # set base_url
-        base_url = self.openweathermap_based_url
+        base_url = self.open_weather_map_based_url
 
         #set api url
-        url = "#{base_url}/data/2.5/weather?q=#{city}&appid=#{self.openweathermap_appid}"
+        url = "#{base_url}/data/2.5/weather?q=#{city}&appid=#{self.open_weather_map_appid}"
 
         puts "GET | #{url}".to_s.red
 
@@ -20,23 +20,23 @@ class WeatherApi < ApplicationRecord
     # handle return value after got response from weather server
     def self.handle_response(response)
             puts "response code: #{response.code}".to_s.red
-            return response.code unless response.code == 200
-            return self.parse_json(response.body)
+            return [response.code, response] unless response.code == 200
+            return [response.code, self.parse_json(response.body)]
     end
 
-    #parse to json format
+    #parse to json format and store data to db
     def self.parse_json(body)
          params = JSON.parse(body)
-         WeatherForecase.store_data(params)
+         return params
     end
 
     # openweathermap API key
-    def self.openweathermap_based_url
+    def self.open_weather_map_based_url
         'https://api.openweathermap.org'
     end
 
     # openweathermap API key
-    def self.openweathermap_appid
+    def self.open_weather_map_appid
         'fbbd8920cccc59c7f9f663cff7ff6bf3'
     end
 end

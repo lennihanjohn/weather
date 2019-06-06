@@ -13,6 +13,11 @@
 
 class City < ApplicationRecord
     # ASSOCIATIONS
-    has_one :country
+    belongs_to :country
     has_many :weather_forcasts
+
+
+    def self.save_record(params)
+        return self.find_or_create_by(params)
+    end
 end

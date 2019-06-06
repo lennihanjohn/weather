@@ -18,39 +18,61 @@
 
 class WeatherForcast < ApplicationRecord
     # ASSOCIATIONS
-    has_one :city
-    has_one :weather_description
-
+    belongs_to :city
+    belongs_to :weather_description
     #NEST ATTRIBUTES
     accepts_nested_attributes_for :weather_description, allow_destroy: true
     accepts_nested_attributes_for :city, allow_destroy: true
-    accepts_nested_attributes_for :country, allow_destroy: true
        
-    def store_data(params)
-        weather_description << weather_description_params(params)
-        city << city_params(params)
-        country << country_params(params)
-        weather_forcast << weather_forcast_params(params)
+    delegate :country, to: :city
+
+    def self.store_data(params)
+        ActiveRecord::Base.transaction do
+            weather_description_data = self.weather_description_params(params)
+            weather_description = WeatherDescription.save_record(weather_description_data)
+
+            country_data = self.country_params(params)
+            country = Country.save_record(country_data)
+
+            city_data = self.city_params(params, country.id)
+            city = City.save_record(city_data)
+
+            weather_forcast_data = self.weather_forcast_params(params,weather_description.id, city.id) 
+            weather_forcast = self.save_record(weather_forcast_data)
+
+            return weather_forcast
+        end
     end
 
+    def self.save_record(params)
+        return self.find_or_create_by(params)
+    end
+
+    def city_name_with_country
+        return self.city.name + ", " + self.country.name
+    end
+    
     private
 
      # return weather attributes
-     def weather_forcast_params(params)
+     def self.weather_forcast_params(params,weather_description_id, city_id)
         return {
+            weather_description_id: weather_description_id,
+            city_id: city_id,
             temperature: params['main']['temp'], 
             min_temperature: params['main']['temp_min'], 
             max_temperature: params['main']['temp_max'], 
             humidity: params['main']['humidity'], 
             pressure: params['main']['pressure'], 
-            sunrise: params['sys']['sunrise'], 
-            sunset: params['sys']['sunset']
+            sunrise: self.time_converter(params['sys']['sunrise']), 
+            sunset: self.time_converter(params['sys']['sunset'])
         }
     end
 
     # return city attributes
-    def city_params(params)
+    def self.city_params(params,country_id)
         return {
+            country_id: country_id,
             name: params['name'], 
             lat: params['coord']['lat'], 
             lon: params['coord']['lon']
@@ -58,17 +80,20 @@ class WeatherForcast < ApplicationRecord
     end
 
     # return country attribute
-    def country_params(params)
+    def self.country_params(params)
         return {
             name: params['sys']['country']
         }
     end
 
     # return weather description attribute
-    def weather_description_params(params)
+    def self.weather_description_params(params)
         return {
-            main: params['weather']['main'],
-            description: params['weather']['description']
+            description: params['weather'][0]['description']
         }
+    end
+
+    def self.time_converter(i)
+        return Time.at(i)
     end
 end
