@@ -2,7 +2,7 @@
 <!-- if you want to create login page and register page together in one page ...you have to only chnage his name...that's it...                 -->
 <div class="container" style="margin-top: 5%;">
 
-    <div class="col-md-12 text-center">
+    <div class="col-sm-12 col-md-6 offset-md-3">
     
         <h1 class="text-center text-success"> Welcome to Linhan's Weather app</h1>
         <br/>
@@ -12,7 +12,7 @@
             <div class="form-group">
                 <%= f.text_field :city,  class:"form-control", required: true, placeholder: "Please enter the city name for weather forecast" %>
             </div>
-            <div id="submit_tag">
+            <div id="submit_tag" class="text-center">
                 <%= f.submit 'submit', class: "btn btn-info" %>
             </div>
             
