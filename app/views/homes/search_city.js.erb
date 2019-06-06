@@ -1,6 +1,6 @@
-<% if @errors.present? %>
+<% unless @response[0] == 200 %>
     console.log("haha")
-    swal ( "Oops" ,  "Something went wrong!" ,  "error" );
+    swal ( "Oops" ,  @api_data ,  "error" );
 <% else %>
     $('#display-widgets').html("<%= escape_javascript(render partial: 'homes/partials/display_widgets' ) %>");
 <% end %>
