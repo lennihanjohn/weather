@@ -23,16 +23,20 @@ class WeatherForcast < ApplicationRecord
        
     delegate :country, to: :city
 
+    # prepare coordinates for APIs
     def self.calculate_results(geo_result)
+        #open weather map api
         open_weather_map_response= WeatherApi.open_weather_map(geo_result.coordinates[0],geo_result.coordinates[1])
         open_weather_map_weather_forcast = WeatherForcast.store_data(open_weather_map_response[1],geo_result.city,geo_result.country) if open_weather_map_response[0] == 200
 
+        #dark sky api
         dark_sky_response= WeatherApi.dark_sky(geo_result.coordinates[0],geo_result.coordinates[1])
         dark_sky_weather_forcast = WeatherForcast.store_data(dark_sky_response[1],geo_result.city,geo_result.country) if dark_sky_response[0] == 200
 
         return [open_weather_map_weather_forcast, dark_sky_weather_forcast]
     end
 
+    #store data to db after received api response
     def self.store_data(params,city_name,country_name)
         ActiveRecord::Base.transaction do
             weather_description_data = self.weather_description_params(params)
@@ -100,6 +104,7 @@ class WeatherForcast < ApplicationRecord
         }
     end
 
+    #return time converter from integer to time
     def self.time_converter(i)
         return Time.at(i)
     end

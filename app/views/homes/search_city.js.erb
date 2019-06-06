@@ -1,1 +1,6 @@
-$('#display-widgets').html("<%= escape_javascript(render partial: 'homes/partials/display_widgets' ) %>");
+<% if @geo_result.nil?%>
+    console.log("haha")
+    swal ( "Oops" , "The City Does Not Exist." ,  "error" );
+<% else %>
+    $('#display-widgets').html("<%= escape_javascript(render partial: 'homes/partials/display_widgets' ) %>");
+<% end %>
