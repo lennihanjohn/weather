@@ -1,95 +1,59 @@
-<div class="row">
-	<div class="weather-card one">
-		<div class="top">
-			
-			
-			<div class="wrapper">
-				<h1 class="heading"><%= @weather_forcast.weather_description.description %></h1>
-				<h3 class="location"><%= @weather_forcast.city_name_with_country %></h3>
-				<p class="temp">
-					<span class="temp-value"><%=converter_k_to_c(@weather_forcast.temperature) %></span>
-					<span class="deg">0</span>
-					<a href="javascript:;"><span class="temp-type">C</span></a>
-				</p>
-			</div>
-		</div>
-		<div class="bottom">
-			<div class="wrapper">
-				<ul class="forecast">
-					<li class="active">
-						<span class="date">Highest Temp</span>
-						<span class="condition">
-							<span class="temp"><%=converter_k_to_c(@weather_forcast.max_temperature) %><span class="deg">0</span><span class="temp-type">C</span></span>
-						</span>
-					</li>
-					<li class="active">
-						<span class="date">Lowest Temp</span>
-						<span class="condition">
-							<span class="temp"><%=converter_k_to_c(@weather_forcast.min_temperature) %><span class="deg">0</span><span class="temp-type">C</span></span>
-						</span>
-					</li>
-					<li class="active">
-						<span class="date">Humidity</span>
-						<span class="condition">
-							<span class="temp"><%=@weather_forcast.humidity %></span>
-						</span>
-					</li>
-					<li class="active">
-						<span class="date">Pressure</span>
-						<span class="condition">
-							<span class="temp"><%=@weather_forcast.pressure %></span>
-						</span>
-					</li>
-				</ul>
-			</div>
-			<div class="text-right text-primary small">powered by openweathermap</div>
-		</div>
-	</div>
 
-	<div class="weather-card one">
-		<div class="top">
-			
-			
-			<div class="wrapper">
-				<h1 class="heading"><%= @weather_forcast.weather_description.description %></h1>
-				<h3 class="location"><%= @weather_forcast.city_name_with_country %></h3>
-				<p class="temp">
-					<span class="temp-value"><%=converter_k_to_c(@weather_forcast.temperature) %></span>
-					<span class="deg">0</span>
-					<a href="javascript:;"><span class="temp-type">C</span></a>
-				</p>
+<div class="row">
+	<% @weather_forcasts.each do |weather_forcast| %>
+		<div class="weather-card one">
+			<div class="top">
+				<div class="wrapper">
+					<h1 class="heading"><%= weather_forcast.weather_description.description %></h1>
+					<h3 class="location"><%= weather_forcast.city_name_with_country %></h3>
+					<p class="temp">
+						<span class="temp-value"><%=weather_forcast.temperature %></span>
+						<span class="deg">0</span>
+						<a href="javascript:;"><span class="temp-type">C</span></a>
+					</p>
+				</div>
+			</div>
+			<div class="bottom">
+				<div class="wrapper">
+					<ul class="forecast">
+						<li class="active">
+							<span class="date">Highest Temp</span>
+							<span class="condition">
+								<span class="temp"><%=weather_forcast.max_temperature %><span class="deg">0</span><span class="temp-type">C</span></span>
+							</span>
+						</li>
+						<li class="active">
+							<span class="date">Lowest Temp</span>
+							<span class="condition">
+								<span class="temp"><%=weather_forcast.min_temperature %><span class="deg">0</span><span class="temp-type">C</span></span>
+							</span>
+						</li>
+						<li class="active">
+							<span class="date">Humidity</span>
+							<span class="condition">
+								<span class="temp"><%=weather_forcast.humidity %></span>
+							</span>
+						</li>
+						<li class="active">
+							<span class="date">Pressure</span>
+							<span class="condition">
+								<span class="temp"><%=weather_forcast.pressure %></span>
+							</span>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-		<div class="bottom">
-			<div class="wrapper">
-				<ul class="forecast">
-					<li class="active">
-						<span class="date">Highest Temp</span>
-						<span class="condition">
-							<span class="temp"><%=converter_k_to_c(@weather_forcast.max_temperature) %><span class="deg">0</span><span class="temp-type">C</span></span>
-						</span>
-					</li>
-					<li class="active">
-						<span class="date">Lowest Temp</span>
-						<span class="condition">
-							<span class="temp"><%=converter_k_to_c(@weather_forcast.min_temperature) %><span class="deg">0</span><span class="temp-type">C</span></span>
-						</span>
-					</li>
-					<li class="active">
-						<span class="date">Humidity</span>
-						<span class="condition">
-							<span class="temp"><%=@weather_forcast.humidity %></span>
-						</span>
-					</li>
-					<li class="active">
-						<span class="date">Pressure</span>
-						<span class="condition">
-							<span class="temp"><%=@weather_forcast.pressure %></span>
-						</span>
-					</li>
-				</ul>
-			</div>
-			<div class="text-right text-primary small">powered by openweathermap</div>
-		</div>
-	</div>
+	<% end %>
+
+	
 </div>
+	<span style="margin:20px auto; text-align:center; display:block; ">
+		Powered by 
+		<a href="https://darksky.net/poweredby/" class="text-primary small"   >Dark Sky</a> 
+		and 
+		<a href="https://openweathermap.org/" class="text-primary small" >Open Weather Map</a>
+	</span>
+	
+	
+

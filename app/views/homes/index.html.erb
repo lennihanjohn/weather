@@ -13,12 +13,9 @@
                 <%= f.text_field :city,  class:"form-control", required: true, placeholder: "Please enter the city name for weather forecast" %>
             </div>
             <div id="submit_tag" class="text-center">
-                <%= f.submit 'submit', class: "btn btn-info" %>
+                <%= f.submit 'submit', id: 'submit-btn', class: "btn btn-info" %>
             </div>
-            
-
         <% end %>
-
     </div>
     <div id= "display-widgets"></div>
 
@@ -33,4 +30,5 @@ function initialize(){
     var input_source = document.getElementById('search_city_city');
     var autocomplete = new google.maps.places.Autocomplete(input_source)
 }
+
 </script>
