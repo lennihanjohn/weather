@@ -13,7 +13,9 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <% if Rails.env == 'development' %>
-     <script src="//maps.google.com/maps/api/js?key=AIzaSyCg_yz3C-Qwbcc10OE0F4hMjb39M4vExSY&libraries=places"></script><!-- Test Google Account:linhan-->
+      <script src="//maps.google.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&libraries=places"></script><!-- Test Google Account:linhan-->
+    <% else %>
+      <script src="//maps.google.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places"></script>
     <% end %>
   </head>
 

@@ -53,11 +53,11 @@ class WeatherApi < ApplicationRecord
 
     # openweathermap API key
     def self.open_weather_map_appid
-        return 'fbbd8920cccc59c7f9f663cff7ff6bf3'
+        return ENV['OPEN_WEATHER_MAP_APP_ID']
     end
 
        # dark_sky Secret Key
     def self.dark_sky_secret_key
-        return 'c7b5a635bbde3034e8a39316d2110cc5'
+        return ENV['DARK_SKY_SECRET_KEY']
     end
 end
